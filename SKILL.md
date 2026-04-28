@@ -2,9 +2,9 @@
 name: evolution
 slug: evolution
 version: 1.0.0
-homepage: https://github.com/your-repo/evolution-skill
+homepage: https://github.com/EricArcha/EVO-skill
 changelog: "Initial release"
-description: Distill reusable patterns from workspace history into new skills with human-in-the-loop approval. Scans workspaces, identifies patterns, and generates skill candidates for user review.
+description: "EN: Distill reusable patterns from workspace history into new skills with human-in-the-loop approval.\nZH: 从工作区历史中提炼可复用的模式，生成新的 Skills，全程由你掌控。"
 metadata: {"clawdbot":{"emoji":"🧬","requires":{"bins":[]},"os":["linux","darwin","win32"]}}
 ---
 
