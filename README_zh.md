@@ -137,7 +137,8 @@ evolution/
 ├── BASELINE.md          # 增量扫描基线
 ├── LAST_RUN.md          # 上次运行时间戳
 ├── staging/             # 候选草稿目录
-└── reports/            # 历史报告目录
+├── reports/            # 历史报告目录
+└── memory/              # Evolution 自身记忆（运行时生成）
 ```
 
 ## 已知限制

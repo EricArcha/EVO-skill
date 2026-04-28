@@ -139,7 +139,8 @@ evolution/
 ├── BASELINE.md           # Incremental scan baseline
 ├── LAST_RUN.md           # Last run timestamp
 ├── staging/              # Candidate skills (before install)
-└── reports/              # Historical reports
+├── reports/              # Historical reports
+└── memory/               # Evolution's own memory (runtime generated)
 ```
 
 ## Known Limitations
