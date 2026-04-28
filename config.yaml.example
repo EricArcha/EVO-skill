@@ -1,0 +1,21 @@
+# Evolution Skill Configuration
+# Copy this file to config.yaml and customize
+
+# Workspaces to exclude from scanning
+exclude_workspaces:
+  - workspace-incognito
+
+# Default scan time span (days)
+scan_span_days: 30
+
+# Baseline retention period (days)
+baseline_retention_days: 90
+
+# Cron schedule (leave empty to disable)
+cron_schedule: ""
+
+# Maximum number of candidates to generate per run
+max_candidates: 5
+
+# Minimum frequency threshold
+min_frequency: 3

@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Runtime state - generated during skill operation
+BASELINE.md
+LAST_RUN.md
+
+# Staging area - candidate skills generated here
+staging/
+
+# Reports - historical reports
+reports/
+
+# Memory - evolution's own memory
+memory/
+
+# User-specific config - use config.yaml.example
+# config.yaml
