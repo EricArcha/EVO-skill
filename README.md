@@ -22,18 +22,28 @@ Example: You notice that your researcher agent keeps creating documents in the w
 
 ## Installation
 
-### Method 1: ClawHub
+### Method 1: GitHub (Recommended)
 
 ```bash
-openclaw skills install evolution
+# Clone directly to your skills directory
+git clone https://github.com/EricArcha/EVO-skill.git ~/.openclaw/skills/evolution
+openclaw gateway restart
 ```
 
 ### Method 2: Manual
 
+Download or clone this repository to your skills directory:
+
 ```bash
-# Clone or download to your skills directory
 cp -r evolution ~/.openclaw/skills/
 openclaw gateway restart
+```
+
+### Note on ClawHub
+
+ClawHub publication pending. Once published, you will be able to install via:
+```bash
+openclaw skills install evolution
 ```
 
 ## Usage

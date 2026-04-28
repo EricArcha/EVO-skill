@@ -22,18 +22,28 @@
 
 ## 安装方式
 
-### 方式一：ClawHub
+### 方式一：GitHub（推荐）
 
 ```bash
-openclaw skills install evolution
+# 直接克隆到 skills 目录
+git clone https://github.com/EricArcha/EVO-skill.git ~/.openclaw/skills/evolution
+openclaw gateway restart
 ```
 
 ### 方式二：手动安装
 
+下载或克隆本仓库到 skills 目录：
+
 ```bash
-# 克隆或下载到 skills 目录
 cp -r evolution ~/.openclaw/skills/
 openclaw gateway restart
+```
+
+### ClawHub 安装（待发布）
+
+ClawHub 发布后可通过以下命令安装：
+```bash
+openclaw skills install evolution
 ```
 
 ## 使用方法
