@@ -68,17 +68,33 @@ Both are recommended for best results.
 ## Workflow
 
 ```
-1. Scan all configured workspaces
-2. Identify patterns across 4 categories:
-   - 工作边界类 (Cross-workspace boundary issues)
-   - 经验复用类 (Reusable prompt templates, workflows)
-   - 效率提升类 (Repetitive operations)
-   - 系统健康类 (Memory bloat, stale knowledge)
-3. Apply quality filters (frequency ≥3, reward, stability)
-4. Generate distillation report with candidates
-5. You review and confirm each candidate
-6. On confirm → generate staging SKILL.md
-7. You install manually (strict confirmation)
+Phase 1: Scan
+- Scan configured workspaces (memory/, knowledge/, skills/)
+
+Phase 2: Pattern Recognition
+- Identify patterns across 4 categories:
+  - 工作边界类 (Cross-workspace boundary issues)
+  - 经验复用类 (Reusable prompt templates, workflows)
+  - 效率提升类 (Repetitive operations that can be automated)
+  - 系统健康类 (Memory bloat, stale knowledge)
+
+Phase 3: Quality Filtering
+- Apply frequency, reward, stability, boundary, and OpenClaw compliance gates
+
+Phase 4: Generate Report
+- Generate distillation report with candidate skills
+
+Phase 5: User Review
+- You review and confirm each candidate (Confirm/Defer/Reject/Modify)
+
+Phase 6: Generate Staging
+- On confirmation, skill generates staging SKILL.md
+
+Phase 7: Manual Install
+- You install manually (strict confirmation each time)
+
+Phase 8: Track Installed Skills
+- Track evolution-generated skills for optimization opportunities
 ```
 
 ## Configuration
@@ -119,12 +135,32 @@ Evolution integrates with weekly summary skills (周汇报) if you have one conf
 
 ## Quality Gates
 
-Each skill candidate must pass:
+Each skill candidate must pass ALL gates:
+
+### Basic Gates (must pass)
 - **Frequency**: Pattern appears ≥3 times
 - **Reward**: Measurable time savings
 - **Stability**: Not a one-time pattern
 - **Boundary**: Doesn't duplicate existing skills
-- **Verifiable**: Can design a simple test
+
+### Execution Constraint Gate (must pass)
+- **Verifiable**: Must include a concrete verification method
+- **Trigger Clarity**: Must specify exact trigger conditions
+- **Actionable**: Must define concrete actions
+- **Feedback Loop**: Must define how the skill confirms it executed correctly
+
+### OpenClaw Compliance Gate (must pass)
+- **Architecture Fit**: Follows OpenClaw best practices
+- **Tool Alignment**: Can be executed with OpenClaw's tool set
+- **Context Appropriate**: Scope appropriate for a skill
+
+## User Response Options
+
+For each candidate, reply:
+- **确认 (confirm)** → Generate formal SKILL.md in staging/
+- **待定 (defer)** → Include in next evolution run, don't forget
+- **拒绝 (reject)** → Record rejection reason (for future filtering)
+- **修改 (modify)** → Tell me what needs to change
 
 ## Strictly No Auto-Execution
 
@@ -146,8 +182,10 @@ evolution/
 ├── README_zh.md          # Chinese version
 ├── LICENSE               # MIT License
 ├── config.yaml           # User configuration
+├── config.yaml.example  # Config template
 ├── BASELINE.md           # Incremental scan baseline
 ├── LAST_RUN.md           # Last run timestamp
+├── evolution-installed.md # Registry of evolution-generated installed skills
 ├── staging/              # Candidate skills (before install)
 ├── reports/              # Historical reports
 └── memory/               # Evolution's own memory (runtime generated)

@@ -212,22 +212,39 @@ memory-maintenance: 定期清理和压缩memory文件的机制
 
 ## Phase 5: Quality Filtering
 
-Each candidate must pass ALL tests:
+Each candidate must pass ALL gates:
 
-| Test | Threshold | Rationale |
+### Basic Gates (must pass)
+| Gate | Threshold | Rationale |
 |------|-----------|----------|
 | Frequency | ≥3 occurrences in scan period | Not random noise |
 | Reward | Time savings OR error reduction identifiable | Worth the effort |
 | Stability | Pattern stable across different contexts | Won't break soon |
 | Boundary | Does not overlap with existing skills | No duplication |
-| Verifiable | Can design simple acceptance test | Can verify it works |
+
+### Execution Constraint Gate (must pass)
+| Gate | Requirement |
+|------|-------------|
+| Verifiable | Must include a concrete verification method |
+| Trigger Clarity | Must specify exact trigger conditions, not vague |
+| Actionable | Must define concrete actions |
+| Feedback Loop | Must define how skill confirms correct execution |
+
+### OpenClaw Compliance Gate (must pass)
+| Gate | Requirement |
+|------|-------------|
+| Architecture Fit | Follows OpenClaw best practices |
+| Tool Alignment | Can be executed with OpenClaw's tool set |
+| Context Appropriate | Scope appropriate for a skill |
 
 **Auto-rejection criteria:**
 - Frequency < 3 → "too rare"
 - No clear reward → "insufficient benefit"
 - Only happened once → "one-time issue"
-- Overlaps with `seo`, `creative-toolkit`, etc. → "duplicate functionality"
+- Overlaps with existing skills → "duplicate functionality"
 - Cannot design test → "unverifiable"
+- Vague trigger conditions → "需要重构"
+- No feedback loop → "需要重构"
 
 ---
 
@@ -282,11 +299,12 @@ smart-archive/
 ## 你的操作
 
 对于每个候选，请回复：
-- **确认** → 我生成正式草稿
+- **确认** → 我生成正式草稿到 `staging/`
+- **待定** → 在下次evolution运行时再考虑，不遗忘
 - **拒绝** → 记录拒绝理由（用于未来过滤）
 - **修改** → 告诉我需要修改什么
 
-[候选 #1] 确认/拒绝/修改？
+[候选 #1] 确认/待定/拒绝/修改？
 [候选 #2] ...
 ```
 
@@ -339,7 +357,90 @@ openclaw gateway restart
 
 ---
 
-## Phase 8: Weekly Summary Integration
+## Phase 8: Installed Skill Tracking
+
+**Purpose**: Track evolution-generated skills and generate optimization candidates.
+
+### Registry File: evolution-installed.md
+
+When user confirms installation of an evolution-generated skill:
+
+```
+Evolution asks: "Install complete?"
+If yes → record to ~/.openclaw/skills/evolution/evolution-installed.md
+```
+
+### Tracking During Scan
+
+During Phase 1 scan, for each active skill in `evolution-installed.md`:
+1. Search recent memory for skill references and trigger keywords
+2. Check if constraint was followed or bypassed
+3. Log trigger count and effectiveness
+4. Generate optimization candidates for low-effectiveness skills
+
+### Optimization Trigger Conditions
+
+| Condition | Action |
+|-----------|--------|
+| Skill rarely triggered | Mark as low value, consider removing |
+| Skill triggered but ineffective | Generate optimization candidate |
+| OpenClaw architecture changed | Mark as potentially outdated |
+
+### Output in Distillation Report
+
+```markdown
+## 已安装Skill优化候选
+
+### authorization-norms-ref (需要优化)
+- 触发次数：1次
+- 有效性：低
+- 问题：规则存在但无执行机制
+- 建议：重构为P0-core hook集成或移除
+- 操作：[优化/移除/保留]
+```
+
+---
+
+## Phase 9: Memory Log Generation
+
+**Purpose**: Create a memory log after each evolution run for continuity.
+
+### When Generated
+
+After Phase 7 (Manual Install) completes, before ending the evolution session.
+
+### Output Location
+
+`~/.openclaw/skills/evolution/memory/YYYY-MM-DD.md`
+
+### Format
+
+```markdown
+# Evolution Memory Log - 2026-04-29
+
+## Run Summary
+- mode: incremental
+- scan_span_days: 30
+- files_scanned: 47
+- candidates_found: 2
+- candidates_confirmed: 1
+- candidates_deferred: 0
+- candidates_rejected: 1
+
+## Installed Skill Tracking
+| Skill | Status | Last Triggered | Effectiveness |
+|-------|--------|----------------|----------------|
+| authorization-norms-ref | needs_optimization | 2026-04-29 | low |
+
+## Notes
+- First run with 90-day baseline
+- Generated candidates: authorization-norms-ref, steve-commands-regression-check
+- authorization-norms-ref installed, flagged for optimization
+```
+
+---
+
+## Phase 10: Weekly Summary Integration
 
 The weekly summary skill (周汇报) should check evolution status:
 
@@ -385,14 +486,15 @@ The weekly summary skill (周汇报) should check evolution status:
 ├── SKILL.md                    # Main skill instructions
 ├── evolution-guide.md          # This workflow doc
 ├── config.yaml                 # User preferences
+├── config.yaml.example        # Config template
 ├── BASELINE.md                 # Baseline mtime+size for incremental scan
 ├── LAST_RUN.md                 # Timestamp of last run
+├── evolution-installed.md      # Registry of evolution-generated installed skills
 ├── staging/                    # Confirmed candidates get generated here
 │   └── .gitkeep
 ├── reports/                    # Historical distillation reports
 │   └── 2026-04/
-│       ├── 2026-04-29-report.md
-│       └── 2026-04-29-raw-scan.md
-└── memory/                     # Evolution's own memory
+│       └── 2026-04-29-report.md
+└── memory/                     # Evolution's own memory (runtime generated)
     └── 2026-04-29.md
 ```

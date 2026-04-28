@@ -9,13 +9,19 @@ exclude_workspaces:
 scan_span_days: 30
 
 # Baseline retention period (days)
+# After this many days, baseline will be refreshed on next full scan
 baseline_retention_days: 90
 
 # Cron schedule (leave empty to disable)
+# Format: "minute hour day-of-month month day-of-week"
+# Example: "0 18 * * 5" = Every Friday at 6pm
+# Example: "0 11 1,15 *" = 1st and 15th of each month at 11am
 cron_schedule: ""
 
 # Maximum number of candidates to generate per run
+# Prevents overwhelming with too many suggestions
 max_candidates: 5
 
 # Minimum frequency threshold
+# Pattern must appear at least this many times to be considered
 min_frequency: 3
