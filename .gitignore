@@ -15,5 +15,8 @@ reports/
 # Memory - evolution's own memory
 memory/
 
+# Documentation (generated, not committed)
+docs/
+
 # User-specific config - use config.yaml.example
 config.yaml
