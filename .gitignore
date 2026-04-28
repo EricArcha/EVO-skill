@@ -4,6 +4,7 @@
 # Runtime state - generated during skill operation
 BASELINE.md
 LAST_RUN.md
+evolution-installed.md
 
 # Staging area - candidate skills generated here
 staging/
